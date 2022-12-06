@@ -1,6 +1,14 @@
 require 'rspec'
 require '02_select_countries'
 
+# == Schema Information
+#
+# Table name: nobels
+#
+#  yr          :integer
+#  subject     :string
+#  winner      :string
+
 describe 'SELECT from world' do
   describe 'large_countries' do
     it 'selects the names of countries with over 200 million people' do
