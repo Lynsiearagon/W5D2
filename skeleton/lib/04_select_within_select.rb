@@ -69,7 +69,20 @@ def neighbors_of_certain_b_countries
   # List the name and continent of countries in the continents containing
   # 'Belize', 'Belgium'.
   execute(<<-SQL)
-    
+    SELECT
+      name, continent
+    FROM
+      countries
+    WHERE
+      continent IN ( 
+        SELECT
+          continent
+        FROM
+          countries
+        WHERE
+          name = 'Belize' OR
+          name = 'Belgium'
+      );
   SQL
 end
 
@@ -77,6 +90,28 @@ def population_constraint
   # Which country has a population that is more than Canada but less than
   # Poland? Show the name and the population.
   execute(<<-SQL)
+    SELECT
+      name, population
+    FROM
+      countries
+    WHERE
+      name != 'Poland' AND
+      name != 'Canada' AND
+      population BETWEEN (
+        SELECT
+          population
+        FROM
+          countries
+        WHERE
+          name = 'Canada'
+      ) and (
+        SELECT
+          population
+        FROM
+          countries
+        WHERE
+          name = 'Poland'
+      );
   SQL
 end
 
